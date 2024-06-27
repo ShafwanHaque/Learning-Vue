@@ -1,89 +1,84 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Learning Vue.js</title>
-        <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.js"></script>
-        <style>
-            body{
-                background: #eee;
-                max-width: 960px;
-                margin: 20px auto;
-            }
-            p, h3, ul{
-                margin: 0;
-                padding: 0;
-            }
-            li{
-                list-style-type: none;
-                background: #fff;
-                margin: 20px auto;
-                padding: 10px 20px;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            .box {
-                padding: 100px 0;
-                width: 400px;
-                text-align: center;
-                background: #ddd;
-                margin: 20px;
-                display: inline-block;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- <h1>Helo vue</h1> -->
-
-        <div id="app">
-            <div v-if="showProduct">
-                <!-- attribut bind (v-bind) -->
-                <!-- <a v-bind:href="url">Github</a> -->
-                <a :href="url">Github</a>
-                <ul>
-                    <li v-for="bike in bikes" v-bind:class="{fav: bike.isFav}">
-                        <div>
-                            <img :src="bike.img" :alt="bike.title" />
-                            <h3>{{ bike.title}}</h3>
-                            <h3>{{ bike.descrpition}}</h3>
-                            <h3>{{ bike.price}}</h3>
-                        </div>
-                        <button v-on:click="increasePrice">
-                            Increase Price
-                        </button>
-                        <button v-on:click="decreasePrice">
-                            Decrease Price
-                        </button>
-                        <div @click="changeTitle('Suzuki Gixxer 150efi')">
-                            Change Title
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <button @click="changeShowStatus">
-                <span v-if="showProduct">Hide Product</span>
-                <span v-else>Show Product</span>
-            </button>
-
-            <br />
-            <!-- mouse event (v-event - @)-->
-            <div class="box" @mouseover="handleEvent($event, 5)">
-                mouseover (enter)
-            </div>
-            <div class="box" @mouseleave="handleEvent">mouseleave</div>
-            <div class="box" @dblclick="handleEvent">double click</div>
-            <div class="box" @mousemove="mouseMoveEvent">
-                position: X-{{ x }} Y-{{ y }}
-                <!-- <span v-if="showEvent">
-                    position: X-{{ x }} Y-{{ y }}
-                </span>
-                <span else>
-                    position: X-u Y- u
-                </span> -->
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Vue.js</title>
+    <script src="https://unpkg.com/vue@3.0.2/dist/vue.global.js"></script>
+    <style>
+        body {
+            background: #eee;
+            max-width: 960px;
+            margin: 20px auto;
+        }
+        p, h3, ul {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style-type: none;
+            background: #fff;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        li.fav {
+            background: #F5E8DA;
+        }
+        .box {
+            padding: 100px 0;
+            width: 400px;
+            text-align: center;
+            background: #ddd;
+            margin: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-if="showProduct">
+            <!-- attribut bind (v-bind) -->
+            <!-- <a v-bind:href="url">Github</a> -->
+            <a :href="url">Github</a>
+            <ul>
+                <li v-for="(bike, index) in filteredBikes" :key="index" :class="{ fav: bike.isFav }" @click="toggleFav(bike)">
+                    <div>
+                        <img :src="bike.img" :alt="bike.title" />
+                        <h3>{{ bike.title }}</h3>
+                        <p>{{ bike.descrpition }}</p>
+                        <p>{{ bike.price }}</p>
+                    </div>
+                    <button @click.stop="increasePrice(bike)">
+                        Increase Price
+                    </button>
+                    <button @click.stop="decreasePrice(bike)">
+                        Decrease Price
+                    </button>
+                    <div @click.stop="changeTitle(bike, 'Suzuki Gixxer 150efi')">
+                        Change Title
+                    </div>
+                </li>
+            </ul>
         </div>
-        <script src="app.js"></script>
-    </body>
+        <button @click="changeShowStatus">
+            <span v-if="showProduct">Hide Product</span>
+            <span v-else>Show Product</span>
+        </button>
+        <br />
+        <!-- mouse event (v-event - @)-->
+        <div class="box" @mouseover="handleEvent($event, 5)">
+            mouseover (enter)
+        </div>
+        <div class="box" @mouseleave="handleEvent">mouseleave</div>
+        <div class="box" @dblclick="handleEvent">double click</div>
+        <div class="box" @mousemove="mouseMoveEvent">
+            position: X-{{ x }} Y-{{ y }}
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
 </html>

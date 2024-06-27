@@ -1,32 +1,32 @@
 const app = Vue.createApp({
     data() {
         return {
-            url:'https://github.com/ShafwanHaque',
-            image:'',
+            url: "https://github.com/ShafwanHaque",
+            image: "",
             bikes: [
                 {
                     title: "Aprilia fx150",
                     descrpition:
                         "Aprilia FX 150 is a high performing bike which is available in the Bangladesh motorcycle market.",
                     price: 135000.0,
-                    img:'assets/pic-1.jpeg',
-                    isFav:true
+                    img: "assets/pic-1.jpeg",
+                    isFav: true,
                 },
                 {
                     title: "Aprilia fx110",
                     descrpition:
                         "Aprilia FX 110 is a high performing bike which is available in the Bangladesh motorcycle market.",
                     price: 110000.0,
-                    img:'assets/pic-2.jpeg',
-                    isFav:false
+                    img: "assets/pic-2.jpeg",
+                    isFav: false,
                 },
                 {
                     title: "Apache RR 310",
                     descrpition:
                         "Apache RR 310 is a high performing bike which is available in the Bangladesh motorcycle market.",
                     price: 500000.0,
-                    img:'assets/pic-3.jpeg',
-                    isFav:true
+                    img: "assets/pic-3.jpeg",
+                    isFav: true,
                 },
             ],
             showProduct: true,
@@ -45,23 +45,14 @@ const app = Vue.createApp({
         },
     },
     methods: {
-        increasePrice() {
-            // Assuming you want to increase price of all bikes
-            this.bikes.forEach((bike) => {
-                bike.price += 1000;
-            });
+        increasePrice(bike) {
+            bike.price += 1000;
         },
-        decreasePrice() {
-            // Assuming you want to decrease price of all bikes
-            this.bikes.forEach((bike) => {
-                bike.price -= 1000;
-            });
+        decreasePrice(bike) {
+            bike.price -= 1000;
         },
-        changeTitle(title) {
-            // Example of changing title for all bikes
-            this.bikes.forEach((bike) => {
-                bike.title = title;
-            });
+        changeTitle(bike, title) {
+            bike.title = title;
         },
         changeShowStatus() {
             this.showProduct = !this.showProduct;
@@ -76,10 +67,16 @@ const app = Vue.createApp({
             this.x = event.offsetX;
             this.y = event.offsetY;
             this.showEvent = !this.showEvent;
-        }
-        
+        },
+        toggleFav(bike) {
+            bike.isFav = !bike.isFav;
+        },
     },
-
+    computed: {
+        filteredBikes(){
+            return this.bikes.filter((bike) => bike.isFav);
+        }
+    },
 });
 
 app.mount("#app");
