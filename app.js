@@ -1,37 +1,38 @@
 const app = Vue.createApp({
-    data(){
+    data() {
         return {
-            title: 'Aprilia fx150',
-            descrpition: 'Aprilia FX 150 is a high performing bike which is available in the Bangladesh motorcycle market.',
-            price: 135000.00,
-            showProduct: true
-        }
+            title: "Aprilia fx150",
+            descrpition:
+                "Aprilia FX 150 is a high performing bike which is available in the Bangladesh motorcycle market.",
+            price: 135000.0,
+            showProduct: true,
+        };
     },
     computed: {
         formattedPrice() {
-            return this.price.toFixed(2) + ' Tk.';
-        }
+            return this.price.toFixed(2) + " Tk.";
+        },
     },
     methods: {
         increasePrice() {
             //this.price = this.price+1000;
-            this.price +=1000
+            this.price += 1000;
         },
         decreasePrice() {
             //this.price = this.price-1000;
-            this.price -=1000
+            this.price -= 1000;
         },
-        changeTitle(title){
+        changeTitle(title) {
             //this.title = 'Yahamah FZX150'
-            this.title = title
+            this.title = title;
         },
-        changeShowStatus(){
-            this.showProduct = !this.showProduct
+        changeShowStatus() {
+            this.showProduct = !this.showProduct;
         },
-        handleEvent(){
-            console.log('event');
-        }
-    }
+        handleEvent(event) {
+            console.log(event, event.type);
+        },
+    },
 });
 
-app.mount('#app');
+app.mount("#app");
